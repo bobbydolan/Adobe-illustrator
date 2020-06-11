@@ -4,5 +4,5 @@ main();
   
     var idoc = app.activeDocument;   
         ab = idoc.artboards[i];
-        ab.name = getFilename(); 
+        ab.name = getFilename("Artboard 1"); 
     }
