@@ -64,7 +64,8 @@ if (app.documents.length > 0) {
         placedArt.embed();
     }
 }
-
+// 
+// 
 (function() {
     var SublayerHelper, sublayerHelper;
   

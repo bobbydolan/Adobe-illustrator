@@ -21,7 +21,7 @@ if (app.documents.length > 0)
   }
 
 
-  // alert("Width & Height\n"+ doc.selection[0].width + " x " + doc.selection[0].height);
+  alert("Width & Height\n"+ doc.selection[0].width + " x " + doc.selection[0].height);
 
   // Select all CMD
   doc.selectObjectsOnActiveArtboard();

@@ -26,3 +26,29 @@ if (folder) {
         currentFile = null;
     }
 }
+
+
+
+try 
+{   
+    if(app.documents.length > 0) 
+    {
+        for(var i = app.documents.length - 1; i >= 0; i--)
+        {
+            var file_name               = app.documents[i].name.toString().replace(".ai", "");
+            var destination             = app.documents[i].path + "/" + file_name;
+            var new_path                = new File(destination);
+            var options                 = new ExportOptionsSVG();
+            options.coordinatePrecision = 7;
+            options.embedRasterImages   = true
+
+            app.documents[i].exportFile(new_path, ExportType.SVG, options);
+            // Pass SaveOptions to suppress 'Save Changes' alert that pops up when closing a document.
+            app.documents[i].close(SaveOptions.DONOTSAVECHANGES);
+        }
+    }
+}
+catch(e) 
+{
+    alert( e.message, "Script Alert", true);
+}

@@ -105,16 +105,16 @@ dialog.show();
 var doc = app.activeDocument;
 
 // This works
-iosXv = prompt("iOS Width: ", "1");
-iosYv = prompt("iOS Height: ", "1");
+iosXv = prompt("iOS Width: ", "10");
+iosYv = prompt("iOS Height: ", "10");
 // 
 // 
-androidXv = prompt("Android Width: ", "1");
-androidYv = prompt("Android Height: ", "1");
+androidXv = prompt("Android Width: ", "10");
+androidYv = prompt("Android Height: ", "10");
 // 
 // 
-wwwXv = prompt("WWW Width: ", "1");
-wwwYv = prompt("WWW Height: ", "1");
+wwwXv = prompt("WWW Width: ", "10");
+wwwYv = prompt("WWW Height: ", "10");
 // 
 // 
 baseAboardname = prompt("Artboard Name: ", "Artboard-Name");
@@ -131,6 +131,12 @@ doc.rearrangeArtboards();
 
 wwwBoard = doc.artboards.add([0, 0, wwwXv, -wwwYv]);
 wwwBoard.name = baseAboardname + "-WWW";
+
+var artboard = doc.artboards.getByName("Starter-Doc");
+
+artboard.remove ();
+
+
 
 doc.rearrangeArtboards();
 
