@@ -1,7 +1,4 @@
-﻿#Target illustrator
-
-
-function RemoveEmptySublayers() {
+﻿function RemoveEmptySublayers() {
 
 
     function getNestLevel(layer) {

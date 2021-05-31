@@ -4,6 +4,20 @@ var doc = app.activeDocument;
 for (var i = 0; i < doc.artboards.length; i++) {
     var aBoard = doc.artboards[i].active; // makes artboard active
     var oldName = doc.artboards[i].name;
+    doc.artboards[i].name = oldName.replace("0514-Campus", "Campus"); 
+
+}
+var doc = app.activeDocument;
+for (var i = 0; i < doc.artboards.length; i++) {
+    var aBoard = doc.artboards[i].active; // makes artboard active
+    var oldName = doc.artboards[i].name;
+    doc.artboards[i].name = oldName.replace("Flyer-All-Platforms", "Flyer");
+
+}
+var doc = app.activeDocument;
+for (var i = 0; i < doc.artboards.length; i++) {
+    var aBoard = doc.artboards[i].active; // makes artboard active
+    var oldName = doc.artboards[i].name;
     doc.artboards[i].name = oldName.replace("_", "-"); // replace . with _
 
 }
