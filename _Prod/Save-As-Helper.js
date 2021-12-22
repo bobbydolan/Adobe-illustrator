@@ -17,10 +17,10 @@ var filename = creationDate + '-' + prodTeam ;
 var name_ai = filename + '.ai';
 
 // This saves directly to ~/Desktop
-var export_folder = "/Users/bobbydolan/Desktop/_Parse/Pictures-Review/"; // define the place where to save the copy
+// var export_folder = "/Users/bobbydolan/Desktop/_Parse/Pictures-Review/"; // define the place where to save the copy
 
 // This allows user to choose desitination
-// var export_folder = Folder.selectDialog('Select folder.', '~/desktop')
+var export_folder = Folder.selectDialog('Select folder.', '~/desktop')
 
 
 saveCopyAsAI(name_ai);

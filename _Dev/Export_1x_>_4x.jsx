@@ -14,7 +14,7 @@ for (var i = 0; i < 5; i++) {
     fileName = fileName.substr(0, fileName.lastIndexOf("."));
   }
   // Name each file with yours size to avoid overwrite
-  fileName += "_@wx.png".replace("w", size[i]);
+  fileName += "@wx.png".replace("w", size[i]);
 
   var exportOptions = new ExportOptionsPNG24();
   exportOptions.horizontalScale = exportOptions.verticalScale = scale[i];

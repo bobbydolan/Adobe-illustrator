@@ -23,4 +23,4 @@ function exportPDF_IL(pdfPath, preset ) {
     docRef.saveAs(myFile, pdfSaveOptions);
 };
 
-exportPDF_IL( "e:\\pdfs\\sample.pdf", "");
+// exportPDF_IL( "e:\\pdfs\\sample.pdf", "");

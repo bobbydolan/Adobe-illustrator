@@ -1,4 +1,12 @@
-﻿function RemoveEmptySublayers() {
+﻿/*
+    <javascriptresource>
+    <name>[Ops] Sublayers Delete</name>
+    <enableinfo>true</enableinfo>
+    <category>Ops</category>
+    </javascriptresource>
+*/
+
+function RemoveEmptySublayers() {
 
 
     function getNestLevel(layer) {

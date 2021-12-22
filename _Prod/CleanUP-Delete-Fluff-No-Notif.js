@@ -26,19 +26,18 @@
 //  BY THE "DELETE FLUFF" ACTION </b>
 //  which can be found in the "default.aia" file (included with illustrator), 
 //  or you can downloaded the action separately <a href='http://www.wundes.com/js4ai/deleteFluff.zip'>HERE</a>
- 
+
 //>=--------------------------------------
 // JS code (c) copyright: John Wundes ( john@wundes.com ) www.wundes.com
 //copyright full text here:  http://www.wundes.com/js4ai/copyright.txt
 ////////////////////////////////////////////////////////////////// 
 
-var docRef= app.activeDocument;
-if ( app.documents.length > 0 )
-{	
+var docRef = app.activeDocument;
+if (app.documents.length > 0) {
 	//RE: tweaking this script:
 	//
 	//-----Set 'keepRegistration' to 'false' to remove registration swatch.---
-    var keepRegistration = true;
+	var keepRegistration = true;
 	//-----Set 'keepNoColor' to 'false' to remove NoColor swatch.---
 	var keepNoColor = true;
 	//-----Set 'brag' to '0' to disable the "Removed:" statistics info.---
@@ -58,27 +57,36 @@ if ( app.documents.length > 0 )
 	//____deleteBrushes() doesn't work.
 	//____ You can see them, but you cant remove them..._____
 
-	
-	// now assemble the stats regarding what was removed.
-	if(brag == 1){
-	var msg = "";
-	var msg1 = "";
-	var msg2 = "";
-	var msg3 = "";
-	if(swtsRem>0){msg1 = swtsRem+" unused swatches.\n"}
-	if(smbsRem>0){msg2 = smbsRem+" unused Symbols.\n"}
-	if(stysRem>0){msg3 = "All "+stysRem+" Styles.\n"}
-	if(swtsRem>0 || smbsRem>0 || stysRem>0){msg = msg1+msg2+msg3;
-	} else {msg = "Nothing.\n(Nothing to Remove.)";}
 
-	alert("Removed:\n"+msg);
-	}
+	// now assemble the stats regarding what was removed.
+				// if (brag == 1) {
+				// 	var msg = "";
+				// 	var msg1 = "";
+				// 	var msg2 = "";
+				// 	var msg3 = "";
+				// 	if (swtsRem > 0) {
+				// 		msg1 = swtsRem + " unused swatches.\n"
+				// 	}
+				// 	if (smbsRem > 0) {
+				// 		msg2 = smbsRem + " unused Symbols.\n"
+				// 	}
+				// 	if (stysRem > 0) {
+				// 		msg3 = "All " + stysRem + " Styles.\n"
+				// 	}
+				// 	if (swtsRem > 0 || smbsRem > 0 || stysRem > 0) {
+				// 		msg = msg1 + msg2 + msg3;
+				// 	} else {
+				// 		msg = "Nothing.\n(Nothing to Remove.)";
+				// 	}
+
+				// 	alert("Removed:\n" + msg);
+				// }
 }
 // ============================
 // ====functions start here====
 // ============================
- 
-function deleteUnusedSwatches(){
+
+function deleteUnusedSwatches() {
 	killed = "";
 	saved = "";
 	var usedSwatches = findUsedSwatches();
@@ -89,231 +97,201 @@ function deleteUnusedSwatches(){
 	/*
 			 
 				*/
-	try
-	{
-		while(x > skipSwatches){
-		var lastIndex = app.activeDocument.swatches.length - 1;
-			var swatchToDelete = app.activeDocument.swatches[x-1];
+	try {
+		while (x > skipSwatches) {
+			var lastIndex = app.activeDocument.swatches.length - 1;
+			var swatchToDelete = app.activeDocument.swatches[x - 1];
 			//initialize vars to 0
 			save = ulen = noSwt = regSwt = 0;
-			try
-			{
-				isSpotReg =	swatchToDelete.color.spot.colorType == ColorModel.REGISTRATION;
-			}
-			catch (e)
-			{
+			try {
+				isSpotReg = swatchToDelete.color.spot.colorType == ColorModel.REGISTRATION;
+			} catch (e) {
 				// do nothing, we don't care if it fails, only if it succeeds.
 			}
-			for (var u in usedSwatches)
-			{
-				ulen ++;
-				if (compareColors(usedSwatches[u],swatchToDelete.color) )
-				{
-					saved+= swatchToDelete+"\n";
+			for (var u in usedSwatches) {
+				ulen++;
+				if (compareColors(usedSwatches[u], swatchToDelete.color)) {
+					saved += swatchToDelete + "\n";
 					save = 1;
 					x--
 				}
 			}
-			if (isSpotReg && keepRegistration)
-			{   // For Registration swatch..
-				saved+= swatchToDelete+"\n";
+			if (isSpotReg && keepRegistration) { // For Registration swatch..
+				saved += swatchToDelete + "\n";
 				save = 1;
 				x--;
 				//resetting variable to 0 because every subsequent "try" will fail
 				isSpotReg = 0;
-				regSwt=1;
+				regSwt = 1;
 
 			} else if (swatchToDelete.color.typename == "NoColor" && keepNoColor)
-			
-			{// for "NoColor" swatch
-				saved+= swatchToDelete+"\n";
+
+			{ // for "NoColor" swatch
+				saved += swatchToDelete + "\n";
 				save = 1;
 				x--;
-				noSwt=1;
-				 
-			} 
-			if (save == 0)
-			{
-				killed += swatchToDelete+"\n";
+				noSwt = 1;
+
+			}
+			if (save == 0) {
+				killed += swatchToDelete + "\n";
 				swatchToDelete.remove();
-				x--; 
-				
+				x--;
+
 			}
 		}
 		// for tracking...
-		swtsRem =total-(ulen+noSwt+regSwt);
+		swtsRem = total - (ulen + noSwt + regSwt);
+	} catch (e) {
+		alert(e + "\nThe specified swatch doesn't exist. x = " + x);
 	}
-	catch (e)
-	{
-		alert( e+"\nThe specified swatch doesn't exist. x = " +x);
-	} 
- //}
- }
+	//}
+}
 
 
-function deleteStyles(){ 
-	try
-	{
+function deleteStyles() {
+	try {
 		stylesLen = app.activeDocument.graphicStyles.length;
-		if( stylesLen > 1){
+		if (stylesLen > 1) {
 			// there is always the one default style...
 			stysRem = stylesLen;
 			app.activeDocument.graphicStyles.removeAll();
-		}	
-		 
+		}
+
+	} catch (e) {
+		alert("Cannot Delete Styles." + e);
 	}
-	catch (e)
-	{
-		alert( "Cannot Delete Styles." + e);
-	} 
 }
 
-function deleteUnusedSymbols(){ 
-	try
-	{
+function deleteUnusedSymbols() {
+	try {
 		usedSymbols = testSymbols();
 		var x = lastIndex = app.activeDocument.symbols.length;
-		while(x >= 1){
-				//  here I use x to iterate backwards through the symbols table
-				//  instead of reloading the length each time.
-			var symbolToDelete = app.activeDocument.symbols[x-1];
-			if(!contains(usedSymbols,symbolToDelete)){
-			symbolToDelete.remove();
-			smbsRem++;
+		while (x >= 1) {
+			//  here I use x to iterate backwards through the symbols table
+			//  instead of reloading the length each time.
+			var symbolToDelete = app.activeDocument.symbols[x - 1];
+			if (!contains(usedSymbols, symbolToDelete)) {
+				symbolToDelete.remove();
+				smbsRem++;
 			}
 			x--;
-		}	
+		}
+	} catch (e) {
+		alert("The specified Symbol doesn't exist" + e);
 	}
-	catch (e)
-	{
-		alert( "The specified Symbol doesn't exist" +e);
-	} 
 }
 
-function contains(array,item){
-	for (var each in array)
-	{
-		if (item == array[each])
-		{
-		return(true);
+function contains(array, item) {
+	for (var each in array) {
+		if (item == array[each]) {
+			return (true);
 		}
 	}
 	return false;
 }
-function findUsedSwatches(){
+
+function findUsedSwatches() {
 	allitems = activeDocument.pageItems.length;
 
 	var found = [];
-	while (allitems > 0)
-		{
-		
-		if(activeDocument.pageItems[allitems-1].stroked == true){
-			stk = activeDocument.pageItems[allitems-1].strokeColor;
-			if (!inList(stk,found))
-			{
+	while (allitems > 0) {
+
+		if (activeDocument.pageItems[allitems - 1].stroked == true) {
+			stk = activeDocument.pageItems[allitems - 1].strokeColor;
+			if (!inList(stk, found)) {
 				found.push(stk);
 			}
 
 		}
-		if(activeDocument.pageItems[allitems-1].filled == true){
-			fil = activeDocument.pageItems[allitems-1].fillColor;
-			if (!inList(fil,found))
-			{
+		if (activeDocument.pageItems[allitems - 1].filled == true) {
+			fil = activeDocument.pageItems[allitems - 1].fillColor;
+			if (!inList(fil, found)) {
 				found.push(fil);
 			}
-		} else if(activeDocument.pageItems[allitems-1].typename == "TextFrame"){
-			 
-			fil = activeDocument.pageItems[allitems-1].textRange.fillColor;
-			if (!inList(fil,found))
-			{
+		} else if (activeDocument.pageItems[allitems - 1].typename == "TextFrame") {
+
+			fil = activeDocument.pageItems[allitems - 1].textRange.fillColor;
+			if (!inList(fil, found)) {
 				found.push(fil);
 			}
 		}
 		//
-			
-			allitems--;
-		}
-		
 
-	 return(found);
+		allitems--;
+	}
+
+
+	return (found);
 }
-function inList(a,b){
-	if (b.length == 0)
-	{
+
+function inList(a, b) {
+	if (b.length == 0) {
 		return false;
 	}
-	
-	for (var all in b)
-	{
-		if(compareColors(a,b[all])){
+
+	for (var all in b) {
+		if (compareColors(a, b[all])) {
 			return true;
 		}
 	}
 	return false;
 }
-function compareColors(a,b){
+
+function compareColors(a, b) {
 	//	No need to check for "none" because the calling function only passes hits.
 
-	if (a.pattern == b.pattern && a.pattern != undefined)
-	{
+	if (a.pattern == b.pattern && a.pattern != undefined) {
 		//Compare patterns
 		return true;
-	} 
-	else if (a.gradient == b.gradient && a.gradient != undefined)
-		{
-			//Compare gradients
-			return true;
-		} 
-	else 
-	{
+	} else if (a.gradient == b.gradient && a.gradient != undefined) {
+		//Compare gradients
+		return true;
+	} else {
 		//innocent until proven guilty..
 		answer = true;
 		//Compare contents...
-		for (var each in a)
-		{
-			if (a[each] != b[each] && each!= "tint")
-			{
+		for (var each in a) {
+			if (a[each] != b[each] && each != "tint") {
 				//if anything doesn't match:
 				answer = false;
-			}	
+			}
 		}
 
-		return answer; 
-	
-		 
+		return answer;
+
+
 	}
 }
-function testSymbols(){
+
+function testSymbols() {
 	all = activeDocument.pageItems.length;
 	safe = 0;
 	var found = [];
-	while (all > 0)
-		{
-			var current = activeDocument.pageItems[all-1].symbol
-			if(current != undefined){
-				found.push(current);
-			} 
-		all--;
+	while (all > 0) {
+		var current = activeDocument.pageItems[all - 1].symbol
+		if (current != undefined) {
+			found.push(current);
 		}
-	 return (found);
+		all--;
+	}
+	return (found);
 }
 //The following function doesn't work.
 //there is no JS support for removing brushes in Illustrator CS... Maybe in CS2... (sigh)
 
-function deleteBrushes(){ 
-if(Number(app.version.substr(0,2)) >= 12){
-	try
-	{
-		var x = lastIndex = app.activeDocument.brushes.length;
-		while(x >= 1){
-		var lastIndex = app.activeDocument.brushes.length - 1;
-			var brushToDelete = app.activeDocument.brushes[lastIndex];
-			brushToDelete.remove();
-			x--;
-		}				 
+function deleteBrushes() {
+	if (Number(app.version.substr(0, 2)) >= 12) {
+		try {
+			var x = lastIndex = app.activeDocument.brushes.length;
+			while (x >= 1) {
+				var lastIndex = app.activeDocument.brushes.length - 1;
+				var brushToDelete = app.activeDocument.brushes[lastIndex];
+				brushToDelete.remove();
+				x--;
+			}
+		} catch (e) {
+			alert("Whoops...\n" + e);
+		}
 	}
-	catch (e)
-	{
-		alert( "Whoops...\n" + e);
-	} }
 }
