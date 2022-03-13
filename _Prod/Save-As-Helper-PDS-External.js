@@ -1,4 +1,6 @@
 // Save-As-Prompt
+var filePath = (app.activeDocument.fullName.parent.fsName).toString().replace(/\\/g, '/');
+
 var doc = app.activeDocument;
 
 var original_file = doc.fullName; // we need this to return to original file
@@ -12,7 +14,7 @@ if (arr.length > 1) extension = "." + arr.pop();
 creationDate = prompt("Date: ", "MMDD");
 prodTeam = prompt("File Name: ", "Name");
 
-var filename = creationDate + '-' + prodTeam ;
+var filename = creationDate + '-' + prodTeam + '-External' ;
 
 var name_ai = filename + '.ai';
 
@@ -20,8 +22,13 @@ var name_ai = filename + '.ai';
 // var export_folder = "/Users/bobbydolan/Desktop/_Parse/Pictures-Review/"; // define the place where to save the copy
 
 // This allows user to choose desitination
-var export_folder = Folder.selectDialog('Select folder.', '~/desktop')
 
+// Working 
+// var export_folder = Folder.selectDialog('Select folder.', '~/desktop')
+
+
+// Save to Source File path
+var export_folder = filePath
 
 saveCopyAsAI(name_ai);
 
@@ -29,7 +36,7 @@ function saveCopyAsAI(nameAI) {
 
     var packaged_file = null;
 
-    packaged_file = File(export_folder + "/" + nameAI);
+    packaged_file = new Folder(export_folder + "/" + nameAI);
 
     var save_options = new IllustratorSaveOptions();
 
@@ -39,6 +46,6 @@ function saveCopyAsAI(nameAI) {
 
     doc.saveAs(packaged_file, save_options);
 
-    alert('File Saved!');
+    // alert('File Saved!');
 
 }
