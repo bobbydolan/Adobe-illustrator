@@ -90,28 +90,3 @@ for (var i = 0; i < numArtboards; i++) {
   $.writeln("destFile= ", destFile);
   doc.exportFile(destFile, ExportType.PNG24, options);
 }
-
-
-
-
-var svgOptions = new ExportOptionsPNG24();
-
-
-for (var i = 0; i < numArtboards; i++) {
-  doc.artboards.setActiveArtboardIndex(i);
-
-  options.artBoardClipping = true;
-  options.matte = false;
-  options.horizontalScale = 100;
-  options.verticalScale = 100;
-  options.transparency = true;
-
-  var artboardName = doc.artboards[i].name;
-  $.writeln("artboardName= ", artboardName);
-  var destFile = new File(filePath + "/" + artboardName + "@1x.png");
-  $.writeln("destFile= ", destFile);
-  doc.exportFile(destFile, ExportType.PNG24, options);
-}
-
-
-
