@@ -94,7 +94,7 @@ for (var i = 0; i < numArtboards; i++) {
 
 
 
-var svgOptions = new ExportOptionsPNG24();
+var svgOptions = new ExportOptionsSVG();
 
 
 for (var i = 0; i < numArtboards; i++) {
@@ -108,10 +108,11 @@ for (var i = 0; i < numArtboards; i++) {
 
   var artboardName = doc.artboards[i].name;
   $.writeln("artboardName= ", artboardName);
-  var destFile = new File(filePath + "/" + artboardName + "@1x.png");
+  var destFile = new File(filePath + "/" + artboardName + "@1x.svg");
   $.writeln("destFile= ", destFile);
   doc.exportFile(destFile, ExportType.PNG24, options);
 }
+
 
 
 

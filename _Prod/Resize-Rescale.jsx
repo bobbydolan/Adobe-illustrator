@@ -123,12 +123,15 @@ function main () {
   }
 
   dialog.center();
-  dialog.show();
+  // dialog.show();
+
+  var oSizeTxt = "16"
+  var nSizeTxt = "24"
 
   function okClick() {
     try {
-      var oldSize = convertUnits(oSizeTxt.text * 1 + getDocUnit(), 'px'),
-          newSize = convertUnits(nSizeTxt.text * 1 + getDocUnit(), 'px'),
+      var oldSize = convertUnits(oSizeTxt * 1 + getDocUnit(), 'px'),
+          newSize = convertUnits(nSizeTxt * 1 + getDocUnit(), 'px'),
           ratio = (newSize / oldSize) * 100;
       // When old and new size are equal
       if (ratio == 100) {
