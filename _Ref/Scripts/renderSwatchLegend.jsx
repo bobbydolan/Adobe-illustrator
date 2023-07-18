@@ -19,9 +19,7 @@ doc = activeDocument,
 swatches = doc.swatches,
 cols = 4, // number of columns in group
 displayAs = "RGBColor",  //or "CMYKColor"
-printColors = ["RGB"], // RGB, CMYK, LAB and/or GrayScale
-// printColors = ["HEX", "RGB", "CMYK", "LAB", "GrayScale"], // RGB, CMYK, LAB and/or GrayScale
-// printColors = ["HEX", "RGB"], // RGB, CMYK, LAB and/or GrayScale
+printColors = ["RGB", "CMYK", "LAB", "GrayScale"], // RGB, CMYK, LAB and/or GrayScale
 colorSeparator = " ", // Character used to separate the colours eg "|" output = R: XXX|G: XXX|B: XXX
 textSize = 10, // output text size value in points
 rectRef=null,
