@@ -3,8 +3,8 @@
 // Define the source and target hex color mappings
 var colorMappings = [
   { source: "#CFD7DD", target: "#00FF00" },  // Replace with your color mappings
-  { source: "#0000FF", target: "#FFFF00" },
-  { source: "#00FF00", target: "#0000FF" }
+  // { source: "#0000FF", target: "#FFFF00" },
+  // { source: "#00FF00", target: "#0000FF" }
   // Add more color mappings as needed
 ];
 
