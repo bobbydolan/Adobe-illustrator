@@ -1,0 +1,1 @@
+app.activeDocument.layers.getByName('BG').remove();
